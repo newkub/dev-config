@@ -1,0 +1,47 @@
+{
+	"extends": ["//"],
+	"globalDependencies": ["**/.env.*local"],
+	"concurrency": "20",
+	"ui": "tui",
+	"tasks": {
+		"prepare": {
+			"dependsOn": ["^prepare"],
+			"cache": true
+		},
+		"dev": {
+			"cache": false,
+			"persistent": true,
+			"dependsOn": ["^build"]
+		},
+		"build": {
+			"dependsOn": ["^build", "lint"],
+			"inputs": ["src/**/*", "public/**/*", ".env*", "tsconfig.json", "next.config.js", "vite.config.ts"],
+			"outputs": [".next/**", "!.next/cache/**", ".vitepress/dist/**", "dist/**", "build/**"],
+			"cache": true
+		},
+		"test": {
+			"dependsOn": ["^build"],
+			"inputs": ["src/**/*", "test/**/*", "**/*.test.ts", "**/*.test.tsx"],
+			"outputs": ["coverage/**"],
+			"cache": true
+		},
+		"lint": {
+			"outputs": [],
+			"cache": true
+		},
+		"format": {
+			"outputs": [],
+			"cache": true
+		},
+		"clean": {
+			"cache": false,
+			"outputs": []
+		},
+		"release": {
+			"cache": false,
+			"dependsOn": ["^build", "test", "lint"],
+			"inputs": ["package.json", "**/package.json"],
+			"outputs": ["CHANGELOG.md"]
+		}
+	}
+}

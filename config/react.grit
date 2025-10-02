@@ -1,0 +1,17 @@
+// Basic Vue 3 linting rules
+pattern => {
+  // ตรวจสอบว่าไม่มี v-if และ v-for ใน element เดียวกัน
+  if (has_child(`<template v-for _> <_ v-if _> </_> </template>`)) {
+    error('Avoid using v-if and v-for on the same element')
+  }
+
+  // ตรวจสอบการใช้งาน v-model ที่ถูกต้อง
+  if (matches(`<input v-model=_ _>`) || matches(`<textarea v-model=_ _>`)) {
+    warn('Consider using argument syntax for v-model modifiers')
+  }
+
+  // ตรวจสอบการใช้งาน key กับ v-for
+  if (has_child(`<template v-for _ in _> <_> </_> </template>`) && !has_attr('key')) {
+    error('Always use key with v-for')
+  }
+}

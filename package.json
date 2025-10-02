@@ -1,0 +1,15 @@
+{
+	"name": "config.wrikka.com",
+	"type": "module",
+	"packageManager": "bun@1.2.20",
+	"workspace": ["config", "cli"],
+	"scripts": {
+		"dev": "turbo run dev",
+		"build": "turbo run build",
+		"lint": "turbo run lint"
+	},
+	"devDependencies": {
+		"@types/bun": "^1.2.21",
+		"turbo": "^2.5.6"
+	}
+}

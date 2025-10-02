@@ -1,0 +1,30 @@
+{
+  "name": "@packages/setup-config",
+  "version": "0.1.0",
+  "description": "Wrikka CLI tool with interactive prompts",
+  "type": "module",
+  "scripts": {
+    "build": "tsdown",
+    "dev": "bun run --watch src/index.ts",
+    "start": "bun dist/index.js",
+    "format": "biome format --write",
+    "lint": "script-cli lint"
+  },
+  "dependencies": {
+    "execa": "9.6.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.1.1",
+    "@cli/script-cli": "workspace:*",
+    "@packages/config": "workspace:*",
+    "@types/node": "24.0.14",
+    "typescript": "^5.8.3"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./package.json": "./package.json"
+  }
+}

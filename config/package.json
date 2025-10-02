@@ -1,0 +1,24 @@
+{
+	"name": "@packages/config",
+	"type": "module",
+	"exports": {
+		"./biome.jsonc": "./src/biome.jsonc",
+		"./dprint.json": "./src/dprint.json",
+		"./eslint.config.mjs": "./src/eslint.config.mjs",
+		"./knip.json": "./src/knip.json",
+		"./lefthook.yml": "./src/lefthook.yml",
+		"./oxlintrc.json": "./src/.oxlintrc.json",
+		"./node-modules-inspector.config.ts": "./src/node-modules-inspector.config.ts",
+		"./railway.json": "./src/railway.json",
+		"./release-it.json": "./src/.release-it.json",
+		"./taze.config.ts": "./src/taze.config.ts",
+		"./tsconfig.json": "./src/tsconfig.json",
+		"./tsconfig.client.json": "./src/tsconfig.client.json",
+		"./tsdown.config.ts": "./src/tsdown.config.ts",
+		"./turbo.json": "./src/turbo.json",
+		"./uno.config.ts": "./src/uno.config.ts",
+		"./vite.config.ts": "./src/vite.config.ts",
+		"./vitest.config.ts": "./src/vitest.config.ts",
+		"./wrikka-uno-preset.ts": "./src/wrikka-uno-preset.ts"
+	}
+}
