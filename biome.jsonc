@@ -1,0 +1,47 @@
+{
+  "$schema": "https://biomejs.dev/schemas/1.9.4/configuration.json",
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "assist": {
+    "actions": { "source": { "organizeImports": "on" } }
+  },
+  "files": {
+    "includes": ["./**/*.ts", "./**/*.vue", "./**/*.html", "./**/*.css", "./**/*.json"],
+    "ignoreUnknown": true,
+    "ignore": [
+      "node_modules/**",
+      ".next/**",
+      "dist/**",
+      "build/**",
+      ".turbo/**"
+    ]
+  },
+  "formatter": {
+    "enabled": true
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "correctness": {
+        "noUnusedVariables": {
+          "level": "warn",
+          "fix": "safe"
+        },
+        "noUnusedImports": "warn",
+        "noUnusedFunctionParameters": "off"
+      },
+      "style": {
+        "useNodejsImportProtocol": "off",
+        "noCommonJs": "error"
+      }
+    },
+    "domains": {
+      "project": "recommended",
+      "test": "recommended"
+    }
+  }
+}
