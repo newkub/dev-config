@@ -1,5 +1,5 @@
 {
-  "name": "@packages/setup-config",
+  "name": "cli",
   "version": "0.1.0",
   "description": "Wrikka CLI tool with interactive prompts",
   "type": "module",
@@ -11,14 +11,13 @@
     "lint": "script-cli lint"
   },
   "dependencies": {
+    "@clack/prompts": "^0.11.0",
     "execa": "9.6.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.1.1",
-    "@cli/script-cli": "workspace:*",
-    "@packages/config": "workspace:*",
-    "@types/node": "24.0.14",
-    "typescript": "^5.8.3"
+    "@wrikka/config": "workspace:*",
+    "@types/node": "24.7.0",
+    "typescript": "^5.9.3"
   },
   "main": "./dist/index.js",
   "module": "./dist/index.js",

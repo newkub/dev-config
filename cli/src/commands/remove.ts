@@ -2,8 +2,10 @@ import { multiselect, isCancel, spinner } from "@clack/prompts";
 import pc from "picocolors";
 import { rm, rmdir, readdir, stat } from "node:fs/promises";
 import { resolve, relative } from "node:path";
+import { CONFIG_PATHS } from "../utils/config-paths";
 
-const cwd = process.cwd();
+const cwd = CONFIG_PATHS.CWD;
+const configSrcDir = CONFIG_PATHS.CLI_CONFIG_SRC;
 
 interface FileItem {
 	name: string;
@@ -43,6 +45,32 @@ async function getFiles(dir: string, baseDir = dir): Promise<FileItem[]> {
 	}
 }
 
+async function removeFromConfigSrc(sourcePath: string): Promise<void> {
+	const relativePath = relative(cwd, sourcePath).replace(/\\/g, "/");
+	const targetPath = resolve(configSrcDir, relativePath);
+
+	try {
+		const stats = await stat(targetPath);
+
+		if (stats.isDirectory()) {
+			const files = await readdir(targetPath);
+
+			// Remove all files in the directory
+			await Promise.all(
+				files.map((file) => removeFromConfigSrc(resolve(targetPath, file))),
+			);
+
+			// Remove the directory itself
+			await rmdir(targetPath);
+		} else {
+			// Remove the file
+			await rm(targetPath);
+		}
+	} catch (error) {
+		// File doesn't exist in config/src, that's okay
+	}
+}
+
 export async function handleRemove() {
 	const s = spinner();
 
@@ -69,13 +97,14 @@ export async function handleRemove() {
 			return;
 		}
 
-		s.start("Removing selected files...");
+		s.start("Removing selected files from config/src...");
 
 		// Process each selected file
 		for (const filePath of selected as string[]) {
 			try {
 				const fileName = filePath.split(/[\\/]/).pop() || "";
-				await removeItem(filePath);
+
+				await removeFromConfigSrc(filePath);
 				console.log(pc.green(`✓ Removed: ${fileName}`));
 			} catch (error) {
 				console.error(pc.red(`✗ Failed to remove: ${filePath}`), error);
@@ -88,28 +117,5 @@ export async function handleRemove() {
 		if (!isCancel(error)) {
 			console.error(pc.red("Error:"), error);
 		}
-	}
-}
-
-async function removeItem(itemPath: string): Promise<void> {
-	try {
-		const stats = await stat(itemPath);
-
-		if (stats.isDirectory()) {
-			const files = await readdir(itemPath);
-
-			// Remove all files in the directory
-			await Promise.all(
-				files.map((file) => removeItem(resolve(itemPath, file))),
-			);
-
-			// Remove the directory itself
-			await rmdir(itemPath);
-		} else {
-			// Remove the file
-			await rm(itemPath);
-		}
-	} catch (error) {
-		throw new Error(`Failed to remove ${itemPath}: ${error}`);
 	}
 }

@@ -5,7 +5,30 @@ import pc from "picocolors";
 import { handleAdd } from "./commands/add";
 import { handleRemove } from "./commands/remove";
 import { handleSync } from "./commands/sync";
-import { handleUse } from "./commands/use";
+import { handleMyConfig } from "./commands/my-config";
+import { handleInit } from "./commands/init";
+
+// Handle Ctrl+C gracefully
+let isShuttingDown = false;
+
+function handleShutdown() {
+	if (isShuttingDown) {
+		console.log(pc.yellow("\n🛑 Force exiting..."));
+		process.exit(1);
+	}
+
+	isShuttingDown = true;
+	console.log(pc.yellow("\n👋 Shutting down gracefully... Press Ctrl+C again to force exit"));
+	setTimeout(() => {
+		if (isShuttingDown) {
+			console.log(pc.yellow("🛑 Taking too long, force exiting..."));
+			process.exit(1);
+		}
+	}, 3000);
+}
+
+process.on('SIGINT', handleShutdown);
+process.on('SIGTERM', handleShutdown);
 
 async function main() {
 	try {
@@ -13,35 +36,47 @@ async function main() {
 			message: "What would you like to do?",
 			options: [
 				{
+					value: "init",
+					label: "Init",
+					hint: "Initialize CLI configuration",
+				},
+				{
 					value: "add",
-					label: "Add to repo",
-					hint: "Add new configuration to repository",
+					label: "Add",
+					hint: "Add configuration to repository",
+				},
+				{
+					value: "list",
+					label: "My Config",
+					hint: "Show my current configurations",
 				},
 				{
 					value: "remove",
-					label: "Remove from repo",
+					label: "Remove",
 					hint: "Remove configuration from repository",
 				},
 				{
 					value: "sync",
-					label: "Sync with repo",
-					hint: "Synchronize with repository configurations",
-				},
-				{
-					value: "use",
-					label: "Use from repo",
-					hint: "Apply configuration from @packages/config",
+					label: "Sync",
+					hint: "Synchronize with repository",
 				},
 			],
 		});
 
 		if (isCancel(command)) {
-			process.exit(0);
+			console.log(pc.yellow("👋 Goodbye!"));
+			return; // Exit gracefully without calling process.exit
 		}
 
 		switch (command) {
+			case "init":
+				await handleInit();
+				break;
 			case "add":
 				await handleAdd();
+				break;
+			case "list":
+				await handleMyConfig();
 				break;
 			case "remove":
 				await handleRemove();
@@ -49,16 +84,13 @@ async function main() {
 			case "sync":
 				await handleSync();
 				break;
-			case "use":
-				await handleUse();
-				break;
 		}
 	} catch (error) {
 		if (!isCancel(error)) {
 			console.error(pc.red("An error occurred:"), error);
-			process.exit(1);
 		}
-		process.exit(0);
+		// Don't call process.exit here, let the main().catch() handle it
+		throw error; // Re-throw to be caught by main().catch()
 	}
 }
 
@@ -67,5 +99,6 @@ main().catch((error) => {
 		console.error(pc.red("An error occurred:"), error);
 		process.exit(1);
 	}
-	process.exit(0);
+	// If it's a cancel error, exit gracefully
+	console.log(pc.yellow("👋 Goodbye!"));
 });

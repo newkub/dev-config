@@ -1,9 +1,11 @@
 import { multiselect, isCancel, spinner } from "@clack/prompts";
 import pc from "picocolors";
 import { readdir, mkdir, copyFile, access, constants } from "node:fs/promises";
-import { resolve, relative, join } from "node:path";
+import { resolve, relative, join, dirname } from "node:path";
+import { CONFIG_PATHS } from "../utils/config-paths";
 
-const cwd = process.cwd();
+const cwd = CONFIG_PATHS.CWD;
+const configSrcDir = CONFIG_PATHS.CLI_CONFIG_SRC;
 
 interface FileItem {
 	name: string;
@@ -39,6 +41,27 @@ async function getFiles(dir: string, baseDir = dir): Promise<FileItem[]> {
 	return files.flat();
 }
 
+async function copyToConfigSrc(sourcePath: string, relativePath: string): Promise<void> {
+	const destinationPath = resolve(configSrcDir, relativePath);
+
+	// Create directory if it doesn't exist
+	const destinationDir = dirname(destinationPath);
+	try {
+		await access(destinationDir, constants.F_OK);
+	} catch {
+		await mkdir(destinationDir, { recursive: true });
+	}
+
+	// Copy file or directory
+	const stats = await import("node:fs").then(fs => fs.statSync(sourcePath));
+	if (stats.isDirectory()) {
+		// For directories, we'll copy recursively later if needed
+		await mkdir(destinationPath, { recursive: true });
+	} else {
+		await copyFile(sourcePath, destinationPath);
+	}
+}
+
 export async function handleAdd() {
 	const s = spinner();
 
@@ -65,13 +88,16 @@ export async function handleAdd() {
 			return;
 		}
 
-		s.start("Adding selected files...");
+		s.start("Adding selected files to config/src...");
 
 		// Process each selected file
 		for (const filePath of selected as string[]) {
 			try {
 				const fileName = filePath.split(/[\\/]/).pop() || "";
-				console.log(pc.green(`✓ Added: ${fileName}`));
+				const relativePath = relative(cwd, filePath).replace(/\\/g, "/");
+
+				await copyToConfigSrc(filePath, relativePath);
+				console.log(pc.green(`✓ Added: ${relativePath}`));
 			} catch (error) {
 				console.error(pc.red(`✗ Failed to add: ${filePath}`), error);
 			}
