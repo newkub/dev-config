@@ -1,15 +1,10 @@
 {
-	"name": "@wrikka/config",
-	"version": "1.0.0",
 	"type": "module",
+	"packageManager": "bun@1.2.22",
 	"scripts": {
-		"generate-exports": "bun src/scripts/generate-exports-package-json.ts src",
-		"release": "bun run generate-exports && release-it"
-	},
-	"release-it": {
-		"npm": {
-			"publish": true
-		}
+		"lint": "biome lint --write",
+		"format": "biome format --write",
+		"lefthook": "bunx lefthook install"
 	},
 	"exports": {
 		"./.oxlintrc.json": "./src/.oxlintrc.json",
@@ -31,21 +26,8 @@
 		"./vite.config.ts": "./src/vite.config.ts",
 		"./vitest.config.ts": "./src/vitest.config.ts",
 		"./vue.grit": "./src/vue.grit",
+		"./generate-exports-package-json.ts": "./src/scripts/generate-exports-package-json.ts",
 		"./index.ts": "./src/presetWrikka/index.ts",
 		"./types.ts": "./src/presetWrikka/types.ts"
-	},
-	"devDependencies": {
-		"@biomejs/biome": "^2.2.5",
-		"@iconify-json/mdi": "^1.2.3",
-		"@vue-macros/eslint-config": "3.1.1",
-		"eslint-plugin-functional": "9.0.2",
-		"node-modules-inspector": "1.1.1",
-		"release-it": "^19.0.5",
-		"taze": "^19.7.0",
-		"tsdown": "^0.15.6",
-		"typescript-eslint": "^8.45.0",
-		"unocss": "^66.5.2",
-		"vite": "7.1.8",
-		"vitest": "3.2.4"
 	}
 }
