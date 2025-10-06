@@ -1,15 +1,23 @@
 {
-	"name": "config.wrikka.com",
-	"type": "module",
-	"packageManager": "bun@1.2.20",
-	"workspace": ["config", "cli"],
-	"scripts": {
-		"dev": "turbo run dev",
-		"build": "turbo run build",
-		"lint": "turbo run lint"
-	},
-	"devDependencies": {
-		"@types/bun": "^1.2.21",
-		"turbo": "^2.5.6"
-	}
+  "name": "dev-config",
+  "version": "0.1.0",
+  "description": "Dev config monorepo with CLI and config packages",
+  "type": "module",
+  "private": true,
+  "packageManager": "bun@1.2.22",
+  "workspaces": [
+    "cli",
+    "config"
+  ],
+  "scripts": {
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "format": "turbo format",
+    "clean": "turbo clean && rm -rf node_modules"
+  },
+  "devDependencies": {
+    "tsdown": "^0.15.6",
+    "turbo": "^2.5.8"
+  }
 }
