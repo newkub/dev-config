@@ -23,7 +23,7 @@
       "outputs": [],
       "cache": true
     },
-    "clean": {
+    "release": {
       "cache": false,
       "outputs": []
     }
