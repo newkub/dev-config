@@ -4,7 +4,9 @@
 	"type": "module",
 	"scripts": {
 		"generate-exports": "bun src/scripts/generate-exports-package-json.ts src",
-		"release": "bun run generate-exports && release-it"
+		"release": "bun run generate-exports && release-it",
+		"pkg-pr-new": "pkg-pr-new publish --compact",
+		"pkg-pr-new:preview": "pkg-pr-new preview"
 	},
 	"release-it": {
 		"npm": {
@@ -40,6 +42,7 @@
 		"@vue-macros/eslint-config": "3.1.1",
 		"eslint-plugin-functional": "9.0.2",
 		"node-modules-inspector": "1.1.1",
+		"pkg-pr-new": "^0.0.60",
 		"release-it": "^19.0.5",
 		"taze": "^19.7.0",
 		"tsdown": "^0.15.6",
