@@ -16,7 +16,7 @@
 		"promise",
 		"vitest",
 		"typescript",
-		"vue"
+		"vue",
 	],
 	"env": {
 		"browser": true,
