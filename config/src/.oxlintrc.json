@@ -19,7 +19,7 @@
 		"vue"
 	],
 	"env": {
-		"browser": true
-		"node" : t
+		"browser": true,
+		"node" : true
 	}
 }
