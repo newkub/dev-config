@@ -19,19 +19,7 @@
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": true,
-			"correctness": {
-				"noUnusedVariables": {
-					"level": "warn",
-					"fix": "safe"
-				},
-				"noUnusedImports": "warn",
-				"noUnusedFunctionParameters": "off"
-			},
-			"style": {
-				"useNodejsImportProtocol": "off",
-				"noCommonJs" :"error"
-			}
+			"recommended": true
 		},
 		"domains": {
 			"project": "recommended",
