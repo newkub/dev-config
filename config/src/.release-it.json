@@ -1,27 +1,28 @@
 {
 	"$schema": "https://unpkg.com/release-it@19/schema/release-it.json",
 	"git": {
-		"commitMessage": "chore: release v${version}"
+	  "commitMessage": "chore: release v${version}"
 	},
 	"github": {
-		"release": true
+	  "release": true
 	},
 	"npm": {
-		"publish": true
+	  "publish": true
 	},
 	"plugins": {
-		"release-it-changelogen": {
-		  "disableVersion": true,
-		  "templates": {
-			"commitMessage": "chore(release): v{{newVersion}}",
-			"tagMessage": "v{{newVersion}}",
-			"tagBody": "v{{newVersion}}"
-		  }
-		},
-		"git": {
-		  "tagName": "v${version}",
-		  "commitMessage": "chore(release): v${version}",
-		  "tagAnnotation": "v${version}"
+	  "release-it-changelogen": {
+		"disableVersion": true,
+		"templates": {
+		  "commitMessage": "chore(release): v{{newVersion}}",
+		  "tagMessage": "v{{newVersion}}",
+		  "tagBody": "v{{newVersion}}"
 		}
-	
-}
+	  },
+	  "git": {
+		"tagName": "v${version}",
+		"commitMessage": "chore(release): v${version}",
+		"tagAnnotation": "v${version}"
+	  }
+	}
+  }
+  
