@@ -1,23 +1,31 @@
-# Lefthook configuration for w-git CLI
-# https://github.com/evilmartians/lefthook
-
-pre-commit:
-  parallel: false
-  commands:
-    lint:
-      glob: "*.{js,ts,json}"
-      run: bun run lint
-      stage_fixed: true
-    
-    format:
-      glob: "*.{js,ts,json,md,yml,yaml}"
-      run: bun run format
-      stage_fixed: true
-  
-      
 pre-push:
-  parallel: true
-  commands:
-    build:
+  jobs:
+    - name: lint
+      run: bun run lint
+
+pre-rebase:
+  jobs:
+    - name: fetch-origin
+      run: git fetch origin
+
+
+
+pre-merge-commit:
+  jobs:
+    - name: run-tests
+      run: bun run test
+    - name: run-build
       run: bun run build
-      
+    - name: verify-rebase
+      run: test $(git merge-base HEAD origin/main) = $(git rev-parse origin/main)
+
+
+post-checkout:
+  jobs:
+    - name: install-deps
+      run: bun install
+
+post-merge:
+  jobs:
+    - name: install-deps
+      run: bun install
