@@ -9,5 +9,19 @@
 	"npm": {
 		"publish": true
 	},
+	"plugins": {
+		"release-it-changelogen": {
+		  "disableVersion": true,
+		  "templates": {
+			"commitMessage": "chore(release): v{{newVersion}}",
+			"tagMessage": "v{{newVersion}}",
+			"tagBody": "v{{newVersion}}"
+		  }
+		},
+		"git": {
+		  "tagName": "v${version}",
+		  "commitMessage": "chore(release): v${version}",
+		  "tagAnnotation": "v${version}"
+		}
 	
 }
