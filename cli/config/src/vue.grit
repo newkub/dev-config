@@ -1,0 +1,117 @@
+// Vue 3 Best Practices linting rules
+pattern => {
+  // 1. Composition API Best Practices
+  // ตรวจสอบการใช้ ref() แทน reactive() สำหรับ primitive values
+  if (matches(`ref\((\d+|true|false|null|'[^']*'|"[^"]*")\)`)) {
+    warn('ใช้ ref() สำหรับ primitive values แทน reactive()')
+  }
+
+  // ตรวจสอบการใช้ computed แทน methods สำหรับ calculated values
+  if (matches(`methods:\s*{\s*\w+:\s*function\(\)\s*{\s*return.*\s*\}\s*}`)) {
+    warn('พิจารณาใช้ computed แทน methods สำหรับ calculated values ที่ไม่ใช่ side effects')
+  }
+
+  // 2. Component Best Practices
+  // ตรวจสอบ component naming conventions (PascalCase)
+  if (matches(`<([a-z]\w*)\s`) && !matches(`<router-link|<component`)) {
+    error('ใช้ PascalCase สำหรับ component names')
+  }
+
+  // ตรวจสอบการใช้ kebab-case สำหรับ props และ events
+  if (matches(`:\w+-[a-z]`)) {
+    warn('ใช้ camelCase สำหรับ props และ events ใน JavaScript, kebab-case ใน templates')
+  }
+
+  // 3. Props Validation Best Practices
+  // ตรวจสอบการมี props validation
+  if (matches(`props:\s*{\s*\w+:\s*{\s*type:\s*\w+`) && !matches(`required:\s*true`) && !matches(`default:`)) {
+    warn('พิจารณากำหนด required หรือ default สำหรับ props')
+  }
+
+  // ตรวจสอบการใช้ function props แทน object props
+  if (matches(`props:\s*{\s*\w+:\s*{\s*type:\s*Function`)) {
+    warn('ใช้ Function แทน function สำหรับ type validation')
+  }
+
+  // 4. Template Best Practices
+  // ตรวจสอบการใช้ v-if และ v-for ใน element เดียวกัน
+  if (has_child(`<template v-for .+ v-if .+>`)) {
+    error('หลีกเลี่ยงการใช้ v-if และ v-for ใน element เดียวกัน')
+  }
+
+  // ตรวจสอบการใช้ key กับ v-for
+  if (has_child(`<template v-for .+> <\\w+[^>]*> </\\w+> </template>`) && !has_attr('key')) {
+    error('ต้องใช้ key กับ v-for เสมอ')
+  }
+
+  // ตรวจสอบการใช้ v-model ที่ถูกต้อง
+  if (matches(`<input[^>]*v-model\s*=\s*[^.][^>]*>`)) {
+    warn('พิจารณาใช้ argument syntax สำหรับ v-model modifiers')
+  }
+
+  // 5. Style Best Practices
+  // ตรวจสอบการใช้ scoped styles
+  if (matches(`<style(?!.*scoped)[^>]*>`) && !matches(`<style[^>]*scoped[^>]*>`)) {
+    warn('พิจารณาใช้ scoped attribute สำหรับ component styles')
+  }
+
+  // ตรวจสอบการใช้ CSS custom properties แทน hardcoded values
+  if (matches(`color:\s*#[0-9a-fA-F]{3,6}`) || matches(`background-color:\s*#[0-9a-fA-F]{3,6}`)) {
+    warn('พิจารณาใช้ CSS custom properties แทน hardcoded colors')
+  }
+
+  // 6. Performance Best Practices
+  // ตรวจสอบการใช้ v-once สำหรับ static content
+  if (matches(`<div[^>]*(class|id)="[^"]*">[^<]*</div>`) && !has_attr('v-once')) {
+    warn('พิจารณาใช้ v-once สำหรับ static content ที่ไม่เปลี่ยนแปลง')
+  }
+
+  // ตรวจสอบการใช้ computed properties แทน inline expressions
+  if (matches(`\{\{\s*\w+\s*\?\s*[^}]*:[^}]*\}\}`)) {
+    warn('พิจารณาใช้ computed property แทน ternary expressions ใน template')
+  }
+
+  // 7. Lifecycle Hooks Best Practices
+  // ตรวจสอบการใช้ onMounted แทน mounted
+  if (matches(`mounted\(\)`)) {
+    warn('ใช้ onMounted จาก Vue 3 Composition API แทน mounted lifecycle hook')
+  }
+
+  // ตรวจสอบการใช้ onUnmounted แทน beforeUnmount
+  if (matches(`beforeUnmount\(\)`)) {
+    warn('ใช้ onUnmounted จาก Vue 3 Composition API แทน beforeUnmount lifecycle hook')
+  }
+
+  // 8. Code Organization Best Practices
+  // ตรวจสอบการใช้ script setup syntax
+  if (matches(`<script[^>]*setup[^>]*>`) && !matches(`<script[^>]*setup[^>]*(lang="ts")*`)) {
+    warn('พิจารณาใช้ TypeScript กับ script setup สำหรับ type safety')
+  }
+
+  // ตรวจสอบการใช้ async setup
+  if (matches(`setup\(\)\s*{\s*await`)) {
+    warn('ใช้ async setup อย่างระมัดระวัง อาจทำให้ component ไม่ reactive อย่างถูกต้อง')
+  }
+
+  // 9. Accessibility Best Practices
+  // ตรวจสอบการมี aria-label สำหรับ interactive elements
+  if (matches(`<(button|input|select|textarea)[^>]*(aria-label|aria-labelledby)`) && !matches(`aria-label=|aria-labelledby=`)) {
+    warn('พิจารณาเพิ่ม aria-label หรือ aria-labelledby สำหรับ interactive elements')
+  }
+
+  // ตรวจสอบการใช้ semantic HTML elements
+  if (matches(`<div[^>]*class="[^"]*(button|nav|main|section|article|header|footer)[^"]*"`) && !matches(`<(button|nav|main|section|article|header|footer)`)) {
+    warn('ใช้ semantic HTML elements แทน div ที่มี classes ที่บ่งบอก semantic meaning')
+  }
+
+  // 10. Modern Vue 3 Features Best Practices
+  // ตรวจสอบการใช้ Teleport สำหรับ modals
+  if (matches(`<div[^>]*class="[^"]*modal[^"]*"[^>]*>.*</div>`) && !matches(`<teleport`)) {
+    warn('พิจารณาใช้ Teleport สำหรับ modal dialogs')
+  }
+
+  // ตรวจสอบการใช้ Suspense สำหรับ async components
+  if (matches(`<component[^>]*:is="[^"]*async[^"]*"[^>]*>`)) {
+    warn('พิจารณาใช้ Suspense สำหรับ async components')
+  }
+}

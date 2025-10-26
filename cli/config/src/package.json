@@ -1,0 +1,33 @@
+{
+	"type": "module",
+	"packageManager": "bun@1.2.22",
+	"scripts": {
+		"lint": "biome lint --write",
+		"format": "biome format --write",
+		"lefthook": "bunx lefthook install"
+	},
+	"exports": {
+		"./.oxlintrc.json": "./src/.oxlintrc.json",
+		"./.release-it.json": "./src/.release-it.json",
+		"./biome.jsonc": "./src/biome.jsonc",
+		"./bun.lock": "./src/bun.lock",
+		"./dprint.json": "./src/dprint.json",
+		"./eslint.config.mjs": "./src/eslint.config.mjs",
+		"./knip.json": "./src/knip.json",
+		"./lefthook.yml": "./src/lefthook.yml",
+		"./node-modules-inspector.config.ts": "./src/node-modules-inspector.config.ts",
+		"./railway.json": "./src/railway.json",
+		"./react.grit": "./src/react.grit",
+		"./taze.config.ts": "./src/taze.config.ts",
+		"./tsconfig.json": "./src/tsconfig.json",
+		"./tsdown.config.ts": "./src/tsdown.config.ts",
+		"./turbo.json": "./src/turbo.json",
+		"./uno.config.ts": "./src/uno.config.ts",
+		"./vite.config.ts": "./src/vite.config.ts",
+		"./vitest.config.ts": "./src/vitest.config.ts",
+		"./vue.grit": "./src/vue.grit",
+		"./generate-exports-package-json.ts": "./src/scripts/generate-exports-package-json.ts",
+		"./index.ts": "./src/presetWrikka/index.ts",
+		"./types.ts": "./src/presetWrikka/types.ts"
+	}
+}

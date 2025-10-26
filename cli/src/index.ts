@@ -64,8 +64,7 @@ async function main() {
 		});
 
 		if (isCancel(command)) {
-			console.log(pc.yellow("👋 Goodbye!"));
-			return; // Exit gracefully without calling process.exit
+			process.exit(0);
 		}
 
 		switch (command) {
@@ -99,6 +98,5 @@ main().catch((error) => {
 		console.error(pc.red("An error occurred:"), error);
 		process.exit(1);
 	}
-	// If it's a cancel error, exit gracefully
-	console.log(pc.yellow("👋 Goodbye!"));
+	process.exit(0);
 });
