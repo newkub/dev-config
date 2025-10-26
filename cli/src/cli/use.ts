@@ -3,7 +3,7 @@ import { execa } from 'execa';
 import fs from 'fs/promises';
 import path from 'path';
 
-export async function syncCommand() {
+export async function useCommand() {
   // 1. Get selected file path from user
   const selectedFile = await clack.text({
     message: 'Enter path to file you want to sync'

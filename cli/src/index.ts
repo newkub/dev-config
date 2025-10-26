@@ -1,25 +1,46 @@
 import { intro, outro, select } from '@clack/prompts';
 import { editCommand } from './cli/edit';
-import { syncCommand } from './cli/sync';
+import { useCommand } from './cli/use';
+import { listCommand } from './cli/list';
+import { addCommand } from './cli/add';
+import { removeCommand } from './cli/remove';
 
 async function main() {
   intro('Welcome to Dev Config CLI');
 
   const action = await select({
-    message: 'What do you want to do?',
+    message: 'Select action:',
     options: [
-      { value: 'sync', label: 'Sync config' },
-      { value: 'edit', label: 'Edit config' },
+      { value: 'edit', label: 'Edit', hint: 'Edit configuration file' },
+      { value: 'use', label: 'Use', hint: 'Use configuration from repo' },
+      { value: 'list', label: 'List', hint: 'List available configs' },
+      { value: 'add', label: 'Add', hint: 'Add file to config' },
+      { value: 'remove', label: 'Remove', hint: 'Remove file from config' },
+      { value: 'exit', label: 'Exit', hint: 'Exit the program' },
     ],
   });
 
-  if (action === 'sync') {
-    await syncCommand();
-  } else {
-    await editCommand();
+  if (action === 'exit') {
+    outro('Operation completed!');
+    return;
   }
-  
-  outro('Operation completed!');
+
+  try {
+    if (action === 'use') {
+      await useCommand();
+    } else if (action === 'list') {
+      await listCommand();
+    } else if (action === 'add') {
+      await addCommand();
+    } else if (action === 'remove') {
+      await removeCommand();
+    } else {
+      await editCommand();
+    }
+    outro('Operation completed!');
+  } catch {
+    outro('Operation cancelled');
+  }
 }
 
 main().catch(console.error);
