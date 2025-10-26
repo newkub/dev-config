@@ -35,16 +35,16 @@
 		"./types.ts": "./src/presetWrikka/types.ts"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "^2.2.5",
+		"@biomejs/biome": "^2.3.1",
 		"@iconify-json/mdi": "^1.2.3",
 		"@vue-macros/eslint-config": "3.1.1",
 		"eslint-plugin-functional": "9.0.2",
 		"node-modules-inspector": "1.1.1",
 		"release-it": "^19.0.5",
-		"taze": "^19.7.0",
-		"tsdown": "^0.15.6",
-		"typescript-eslint": "^8.45.0",
-		"unocss": "^66.5.2",
+		"taze": "^19.8.1",
+		"tsdown": "^0.15.10",
+		"typescript-eslint": "^8.46.2",
+		"unocss": "^66.5.4",
 		"vite": "7.1.8",
 		"vitest": "3.2.4"
 	}

@@ -4,7 +4,7 @@
   "description": "Dev config monorepo with CLI and config packages",
   "type": "module",
   "private": true,
-  "packageManager": "bun@1.2.22",
+  "packageManager": "bun@1.3.1",
   "workspaces": [
     "cli",
     "config"
@@ -15,13 +15,13 @@
     "lint": "turbo lint",
     "format": "biome format --write",
     "release": "turbo release",
-    "update:deps": "taze -r -r",
+    "update:deps": "taze -r -w",
     "clean": "turbo clean && rm -rf node_modules"
   },
   "devDependencies": {
     "config": "workspace:",
     "taze": "^19.8.1",
-    "tsdown": "^0.15.6",
+    "tsdown": "^0.15.10",
     "turbo": "^2.5.8"
   }
 }
