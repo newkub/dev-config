@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@clack/prompts": "^0.11.0",
-    "execa": "9.6.0"
+    "execa": "^9.6.0"
   },
   "devDependencies": {
     "@biomejs/biome": "latest",

@@ -1,5 +1,5 @@
 import { select, note } from '@clack/prompts';
-import { exec } from 'child_process';
+import { execa } from 'execa';
 import path from 'path';
 
 export async function editCommand() {
@@ -14,9 +14,9 @@ export async function editCommand() {
   });
 
   if (editorChoice === 'vscode') {
-    exec(`code ${configPath}`);
+    await execa('code', [configPath]);
   } else {
-    exec(`windsurf ${configPath}`);
+    await execa('windsurf', [configPath]);
   }
   
   note(`Opening config file with ${editorChoice}`);
