@@ -1,102 +1,25 @@
-#!/usr/bin/env node
-
-import { select, isCancel } from "@clack/prompts";
-import pc from "picocolors";
-import { handleAdd } from "./commands/add";
-import { handleRemove } from "./commands/remove";
-import { handleSync } from "./commands/sync";
-import { handleMyConfig } from "./commands/my-config";
-import { handleInit } from "./commands/init";
-
-// Handle Ctrl+C gracefully
-let isShuttingDown = false;
-
-function handleShutdown() {
-	if (isShuttingDown) {
-		console.log(pc.yellow("\n🛑 Force exiting..."));
-		process.exit(1);
-	}
-
-	isShuttingDown = true;
-	console.log(pc.yellow("\n👋 Shutting down gracefully... Press Ctrl+C again to force exit"));
-	setTimeout(() => {
-		if (isShuttingDown) {
-			console.log(pc.yellow("🛑 Taking too long, force exiting..."));
-			process.exit(1);
-		}
-	}, 3000);
-}
-
-process.on('SIGINT', handleShutdown);
-process.on('SIGTERM', handleShutdown);
+import { intro, outro, select } from '@clack/prompts';
+import { editCommand } from './cli/edit';
+import { syncCommand } from './cli/sync';
 
 async function main() {
-	try {
-		const command = await select({
-			message: "What would you like to do?",
-			options: [
-				{
-					value: "init",
-					label: "Init",
-					hint: "Initialize CLI configuration",
-				},
-				{
-					value: "add",
-					label: "Add",
-					hint: "Add configuration to repository",
-				},
-				{
-					value: "list",
-					label: "My Config",
-					hint: "Show my current configurations",
-				},
-				{
-					value: "remove",
-					label: "Remove",
-					hint: "Remove configuration from repository",
-				},
-				{
-					value: "sync",
-					label: "Sync",
-					hint: "Synchronize with repository",
-				},
-			],
-		});
+  intro('Welcome to Dev Config CLI');
 
-		if (isCancel(command)) {
-			process.exit(0);
-		}
+  const action = await select({
+    message: 'What do you want to do?',
+    options: [
+      { value: 'sync', label: 'Sync config' },
+      { value: 'edit', label: 'Edit config' },
+    ],
+  });
 
-		switch (command) {
-			case "init":
-				await handleInit();
-				break;
-			case "add":
-				await handleAdd();
-				break;
-			case "list":
-				await handleMyConfig();
-				break;
-			case "remove":
-				await handleRemove();
-				break;
-			case "sync":
-				await handleSync();
-				break;
-		}
-	} catch (error) {
-		if (!isCancel(error)) {
-			console.error(pc.red("An error occurred:"), error);
-		}
-		// Don't call process.exit here, let the main().catch() handle it
-		throw error; // Re-throw to be caught by main().catch()
-	}
+  if (action === 'sync') {
+    await syncCommand();
+  } else {
+    await editCommand();
+  }
+  
+  outro('Operation completed!');
 }
 
-main().catch((error) => {
-	if (!isCancel(error)) {
-		console.error(pc.red("An error occurred:"), error);
-		process.exit(1);
-	}
-	process.exit(0);
-});
+main().catch(console.error);
