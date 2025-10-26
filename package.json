@@ -13,11 +13,13 @@
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
-    "format": "turbo format",
+    "format": "biome format --write",
     "release": "turbo release",
+    "update:deps": "taze -r -r",
     "clean": "turbo clean && rm -rf node_modules"
   },
   "devDependencies": {
+    "config" : "workspace:",
     "tsdown": "^0.15.6",
     "turbo": "^2.5.8"
   }
