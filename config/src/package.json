@@ -21,7 +21,7 @@
 		"./taze.config.ts": "./src/taze.config.ts",
 		"./tsconfig.json": "./src/tsconfig.json",
 		"./tsdown.config.ts": "./src/tsdown.config.ts",
-		"./tsdown.config.": "./src/tsdown.config.ts",
+		"./gitignore": "./src/tsdown.config.ts",
 		"./turbo.json": "./src/turbo.json",
 		"./uno.config.ts": "./src/uno.config.ts",
 		"./vite.config.ts": "./src/vite.config.ts",
