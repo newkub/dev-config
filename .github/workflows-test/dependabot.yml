@@ -1,0 +1,15 @@
+name: Dependabot Auto-merge
+
+on:
+  pull_request:
+
+jobs:
+  dependabot:
+    runs-on: ubuntu-latest
+    if: github.actor == 'dependabot[bot]'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dependabot/fetch-metadata@v2
+        id: metadata
+      - run: |
+          echo "Dependency name: ${{ steps.metadata.outputs.dependency-name }}"

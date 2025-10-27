@@ -1,30 +1,68 @@
-# Turborepo
-.turbo
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-# Dependency directories
-node_modules/
-
-# Build directories
-dist/
-build/
-
-# Environment variables
+# Runtime data
 .env
 .env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.*.local
 
-# Editor directories and files
+# Build output
+dist
+build
+.output
+.nuxt
+.next
+.svelte-kit
+.vercel
+.netlify
+.cache
+
+# Dependencies
+node_modules/
+.pnpm-lock.yaml
+.yarn/
+.bun.lockb
+
+# IDEs and editors
+.idea
 .vscode/
-.idea/
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-
-# Logs
-logs/
-*.log
+.history
+*.sublime-workspace
+*.sublime-project
 
 # OS generated files
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
+__pycache__/
+
+# Testing
+coverage/
+.vitest/
+storybook-static/
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~
+.~*.orig
+*.seed
+*.pid
+*.tsbuildinfo
+
+# Tools
+.turbo

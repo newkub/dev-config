@@ -1,0 +1,6 @@
+ruleDirs:
+- D:\cli\dev-config\ast-grep\rules
+testConfigs:
+- testDir: D:\cli\dev-config\ast-grep\rule-tests
+utilDirs:
+- D:\cli\dev-config\ast-grep\utils

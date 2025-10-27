@@ -1,0 +1,20 @@
+name: Release
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Run release-it
+        uses: release-it/release-it-action@v5
+        with:
+          githubToken: ${{ secrets.GITHUB_TOKEN }}

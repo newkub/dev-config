@@ -1,0 +1,16 @@
+name: AI Commit
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  ai-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+      - run: bun install -g opencommit
+      - run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          opencommit --hook

@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.base.json",
+  "display": "Modern Full Stack Configuration",
+  "include": ["**/*.ts", "**/*.tsx", "**/*.vue", "**/*.jsx"],
+  "references": [
+    {
+      "path": "./tsconfig.base.json"
+    },
+    {
+      "path": "./tsconfig.vite.json"
+    },
+
+  ]
+}

@@ -1,3 +1,61 @@
 {
-	"extends": ["config/biome.jsonc"]
+	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+	"vcs": {
+		"enabled": true,
+		"clientKind": "git",
+		"useIgnoreFile": true
+	},
+	"assist": {
+		"enabled": true,
+		"actions": {
+			"source": {
+				"organizeImports": "on",
+				"useSortedAttributes": "on",
+				"useSortedKeys": "on",
+				"useSortedProperties": "on"
+			}
+		}
+	},
+	"files": {
+		"includes": [
+			"./**/*.js",
+			"./**/*.jsx",
+			"./**/*.ts",
+			"./**/*.tsx",
+			"./**/*.vue",
+			"./**/*.vue-jsx",
+			"./**/*.svelte",
+			"./**/*.html",
+			"./**/*.css",
+			"./**/*.json",
+			"./**/*.jsonc",
+			"./**/*.md",
+			"./**/*.mdx"
+		],
+		"ignoreUnknown": true
+	},
+	"formatter": {
+		"enabled": true
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": true,
+			"correctness": {
+				"noUnusedVariables": "off",
+				"noUnusedImports": "off",
+				"noUnusedFunctionParameters": "off"
+			},
+			"style": {
+				"noCommonJs": "error"
+			}
+		},
+		"domains": {
+			"project": "recommended",
+			"test": "recommended",
+			"vue": "recommended",
+			"next": "recommended",
+			"react": "recommended"
+		}
+	}
 }
