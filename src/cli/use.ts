@@ -1,11 +1,11 @@
-import * as clack from '@clack/prompts';
+import { text, log } from '@clack/prompts';
 import fs from 'fs/promises';
 import path from 'path';
 import { configDir, handleClackCancel } from '../utils';
 
 export async function useCommand() {
   // 1. Get selected file path from user
-  const selectedFile = await clack.text({
+  const selectedFile = await text({
     message: 'Enter path to file you want to sync'
   });
   
@@ -17,7 +17,7 @@ export async function useCommand() {
   const matchingFile = files.find(f => f === path.basename(selectedFile as string));
   
   if (!matchingFile) {
-    clack.error('No matching file found in config directory');
+    log.error('No matching file found in config directory');
     return;
   }
 
@@ -25,5 +25,5 @@ export async function useCommand() {
   const configFilePath = path.join(configDir, matchingFile);
   await fs.copyFile(selectedFile as string, configFilePath);
   
-  clack.success(`Successfully synced ${matchingFile}`);
+  log.success(`Successfully synced ${matchingFile}`);
 }

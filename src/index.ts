@@ -2,14 +2,16 @@ import { select } from '@clack/prompts';
 import { listCommand } from './cli/list';
 import { addCommand } from './cli/add';
 import { removeCommand } from './cli/remove';
-import { pushCommand } from './cli/push';
-import { pullCommand } from './cli/pull';
+import { updateCommand } from './cli/update';
+import { pull } from './cli/pull';
+import { useCommand } from './cli/use';
 
 const ACTIONS = [
   { value: 'list', label: 'List', hint: 'List available configs' },
   { value: 'add', label: 'Add', hint: 'Add file to config' },
   { value: 'remove', label: 'Remove', hint: 'Remove file from config' },
-  { value: 'push', label: 'Push', hint: 'Push configuration to repo' },
+  { value: 'update', label: 'Update', hint: 'Update configuration to repo' },
+  { value: 'use', label: 'Use', hint: 'Use configuration from repo' },
   { value: 'pull', label: 'Pull', hint: 'Pull configuration from repo' },
 ];
 
@@ -30,10 +32,12 @@ async function handleAction(action: string) {
       return await addCommand()
     case 'remove':
       return await removeCommand()
-    case 'push':
-      return await pushCommand()
+    case 'update':
+      return await updateCommand()
+    case 'use':
+      return await useCommand()
     case 'pull':
-      return await pullCommand()
+      return await pull()
     default:
       throw new Error('Invalid action')
   }
