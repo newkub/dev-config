@@ -56,7 +56,9 @@
 		"@/*": ["./src/*"],
 		"@components/*": ["./src/components/*"],
 		"@utils/*": ["./src/utils/*"],
-		"@types/*": ["./src/types/*"]
+		"@types/*": ["./src/types/*"],
+		"@config/*": ["./src/config/*"],
+		"@constants/*": ["./src/constants/*"]
 	  }
 	},
 	
