@@ -67,7 +67,6 @@
       "@config/*": [
         "./src/config/*"
       ],
-
       "@services/*": [
         "./src/services/*"
       ]
