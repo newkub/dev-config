@@ -9,7 +9,9 @@
 	"npm": {
 	  "publish": true
 	},
-	
+	"hooks": {
+    "before:init": "bun run build"
+  },
 	"plugins": {
 	  "@release-it/conventional-changelog": {
 	    "preset": "angular",
