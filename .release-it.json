@@ -1,33 +1,22 @@
 {
-	"git": {
-	  "commitMessage": "chore: release v${version}"
-	},
+	"$schema": "./node_modules/release-it/schema/release-it.json",
 	"github": {
 	  "release": true
 	},
 	"npm": {
 	  "publish": true
 	},
+	"git": {
+	  "commitMessage": "chore: release v${version}",
+	  "pushRepo": "main"
+	},
 	"hooks": {
-    "before:init": "bun run build"
-  },
+	  "before:init": "bun run build"
+	},
 	"plugins": {
 	  "@release-it/conventional-changelog": {
-	    "preset": "angular",
-	    "infile": "CHANGELOG.md"
-	  },
-	  "release-it-changelogen": {
-		"disableVersion": true,
-		"templates": {
-		  "commitMessage": "chore(release): v{{newVersion}}",
-		  "tagMessage": "v{{newVersion}}",
-		  "tagBody": "v{{newVersion}}"
-		}
-	  },
-	  "git": {
-		"tagName": "v${version}",
-		"commitMessage": "chore(release): v${version}",
-		"tagAnnotation": "v${version}"
+		"preset": "conventional"
 	  }
 	}
-}
+  }
+  
