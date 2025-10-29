@@ -12,7 +12,7 @@
 	},
 	"git": {
 	  "commitMessage": "chore: release v${version}",
-	  "pushRepo": "main"
+	  "pushRepo": "origin"
 	},
 	"hooks": {
 	  "before:init": "bun run build"
