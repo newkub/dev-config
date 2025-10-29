@@ -1,10 +1,14 @@
 {
 	"$schema": "./node_modules/release-it/schema/release-it.json",
 	"github": {
-	  "release": true
+	  "requireBranch": "main",
+	  "commitMessage": "chore: release v${version}",
+	  "tagName": "v${version}",
+	  "push": true
 	},
 	"npm": {
-	  "publish": true
+	  "publish": true,
+	  "timeout": 60000
 	},
 	"git": {
 	  "commitMessage": "chore: release v${version}",
@@ -12,11 +16,6 @@
 	},
 	"hooks": {
 	  "before:init": "bun run build"
-	},
-	"plugins": {
-	  "@release-it/conventional-changelog": {
-		"preset": "conventional"
-	  }
 	}
   }
   
