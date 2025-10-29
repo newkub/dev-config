@@ -1,5 +1,4 @@
 {
-	"$schema": "./node_modules/release-it/schema/release-it.json",
 	"git": {
 	  "commitMessage": "chore: release v${version}"
 	},
